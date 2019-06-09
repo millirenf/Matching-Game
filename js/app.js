@@ -1,6 +1,6 @@
-/*
- * Create a list that holds all of your cards
- */const cardList = [
+//Create a list that holds all of your cards
+let moveCount = 0;
+const cardList = [
      "fa fa-diamond",
      "fa fa-paper-plane-o",
      "fa fa-anchor",
@@ -43,6 +43,8 @@ function shuffle(cardList) {
     return cardList;
 }
 
+
+
 //Do a for look that loops through the cardList array and creates all 16 <li class="card"></li> within the <ul class="deck">
 //function dealTheCards { for (const i = 0; i < cardList.length; i++) {
     //create the html card with <li class="card"> 
@@ -57,10 +59,9 @@ function shuffle(cardList) {
     //document.body.insertAdjacentHTML(newCard, deckDiv); 
     
           
-
 /*
  * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - display the card's symbol (put this functionality in another function that you call from this one) - DONE
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
@@ -69,19 +70,31 @@ function shuffle(cardList) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+//store clicked cards in an array
+let flippedCards = [];
+
 //set up the event listener for a card.
 //make sure that it's the card that's being clicked and make sure that the array is only storing 2 cards at a time
 const deck = document.querySelector('.deck')
 
-deck.addEventListener('click', checkCardOrNot);
 
-function checkCardOrNot () {
-    const clickedCard = event.target;
-    
-    if (clickedCard.classList.contains('card') && flippedCards.length < 2) {
-        flipCardOver (clickedCard);
+deck.addEventListener('click', event => {
+    const clickedCard = event.target;    
+    if (clickedCard.classList.contains('card') && !clickedCard.classList.contains('match')
+        &&  flippedCards.length < 2
+        && !flippedCards.includes(clickedCard)) {
+        flipCardOver(clickedCard);
+        addFlippedCards(clickedCard);
+        if (flippedCards.length === 2) {
+            //checkMatching();            
+            console.log('2 cards have been selected');
+            checkMatching(flippedCards);
+            trackMoves();
+            //moveCount++;
+            console.log(moveCount);
+        }         
     }
-}
+})
 
 //flip the cards over
 function flipCardOver (clickedCard) {
@@ -89,21 +102,45 @@ function flipCardOver (clickedCard) {
     clickedCard.classList.toggle('show');  
 }
 
-//store clicked cards in an array
-let flippedCards = [];
-
-function addFlippedCards (clickedCard) {
+//add flipped cards to the array
+function addFlippedCards(clickedCard) {
     flippedCards.push(clickedCard);
 }
 
-//https://matthewcranford.com/memory-game-walkthrough-part-3-matching-pairs/
+//check to see if the cards are matching
+function checkMatching (flippedCards) {
+    if ( flippedCards[0].firstElementChild.className === flippedCards[1].firstElementChild.className ) {
+        //leave cards flipped over since they match, empty flippedCards array to signal new turn
+        matchingCards(flippedCards);
+     } else { 
+        //flip cards back over since no match, empty flippedCards array to signal new turn
+        nonMatchingCards(flippedCards);        
+    }
+}
 
-//lines 74-84 work. They only trigger when clicking on a card and it returns the class of the card, both 'li' and 'i'
-//next steps - capture first and second clicks using a while loop, comparing the event.targets of the two clicks.  Event target 1 = whatever, event target 2 = whatever, compare them.
-//how do I send the 'over show' class to the 'li'? then switch it back or lock it as a match?
-//change the check on event.target to contains 'card' AND does not contain show AND does not contain match, eliminating the chance of errant clicks
+function matchingCards (flippedCards) {
+    flippedCards[0].classList.toggle('match');
+    flippedCards[1].classList.toggle('match');
+    flippedCards[0].classList.toggle('open');
+    flippedCards[0].classList.toggle('show');
+    flippedCards[1].classList.toggle('open');
+    flippedCards[1].classList.toggle('show');
+    flippedCards.length = 0;
+}
+
+function nonMatchingCards (flippedCards) {
+    setTimeout(() => {
+        flippedCards[0].classList.toggle('open');
+        flippedCards[0].classList.toggle('show');
+        flippedCards[1].classList.toggle('open');
+        flippedCards[1].classList.toggle('show');
+        flippedCards.length = 0;
+        }, 1000);
+}
 
 
-
-
- //*  - display the card's symbol (put this functionality in another function that you call from this one)
+function trackMoves(moveCount) {
+    moveCount++;
+    let movesText = document.querySelector('.moves');
+    movesText.innerHTML = moveCount;
+}
