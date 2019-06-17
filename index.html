@@ -19,10 +19,16 @@
         	<ul class="stars">
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
         	</ul>
 
-        	<span class="moves">0</span> Moves
+            <span class="moves">0</span>
+
+            <span class="move label">Moves / </span>
+            
+            <span class="gameclock">0:00</span>
+
+            <span class="clock label">Game Clock</span>
 
             <div class="restart">
         		<i class="fa fa-repeat"></i>
@@ -79,6 +85,25 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
+
+        <!--pop up box when game has been completed-->
+        <section class="pop-up hide">
+            <div class="result">
+                <h2><span class="pop-up-header">Congratulations!</span></h2>
+                <p>You finished the game in <span class="final-moves">0</span> moves!</p>
+                <p>Your time to complete the game was: <span class="final-gametime">0:00</span>.</p>
+                <p class="stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </p>
+            </div>
+            <div class="buttons">    
+                <button class="pop-up-button close-button">Close</button>
+                <button class="pop-up-button replay-button">Replay</button>
+            </div>
+    
+        </section>
     </div>
 
     <script src="js/app.js"></script>
