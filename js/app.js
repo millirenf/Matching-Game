@@ -9,14 +9,22 @@ let gameTime = 0;
 let moveCount = 0;
 let flippedCards = [];
 let matchedCards = [];
-let cardList = ['fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-cube', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bomb', 'fa fa-diamond', 
+let cardList = ['fa fa-diamond', 
+    'fa fa-paper-plane-o', 
+    'fa fa-anchor', 
+    'fa fa-bolt', 
+    'fa fa-cube', 
+    'fa fa-leaf', 
+    'fa fa-bicycle', 
+    'fa fa-bomb', 
+    'fa fa-diamond', 
     'fa fa-paper-plane-o',
-     'fa fa-anchor',
-     'fa fa-bolt',
-     'fa fa-cube',
-     'fa fa-leaf',
-     'fa fa-bicycle',
-     'fa fa-bomb'];
+    'fa fa-anchor',
+    'fa fa-bolt',
+    'fa fa-cube',
+    'fa fa-leaf',
+    'fa fa-bicycle',
+    'fa fa-bomb'];
 
 
 // ********** Restart the Game **********
@@ -33,7 +41,7 @@ scorePanel.addEventListener('click', event => {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(cardList) {
-    var currentIndex = cardList.length, temporaryValue, randomIndex;
+    let currentIndex = cardList.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -98,6 +106,7 @@ function decrementStar() {
 
 // ********** Game Clock Code **********
 
+
 //start the game clock
 function startGameClock() {
     if (gameStart == 0) {
@@ -110,7 +119,7 @@ function startGameClock() {
 //calculate and publish the game time
 function gameClock(gameStart) {
     if (gameStart == 1) {
-        setInterval(() => {
+        clockId = setInterval(() => {
         gameTime++;
         //console.log(gameTime);
         publishGameClock(gameTime);
@@ -130,7 +139,7 @@ function publishGameClock(gameTime) {
 }
 
 function stopGameClock() {    
-    clearInterval(gameClock);
+    clearInterval(clockId);
     console.log("game clock stopped")
 }
 
@@ -220,6 +229,7 @@ function restartGame() {
     resetStars();
     resetCards();
     shuffle();
+    dealTheCards();
     gameStart = 0;
     gameTime = 0;
     moveCount = 0;
