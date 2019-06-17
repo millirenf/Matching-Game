@@ -107,3 +107,40 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for the Pop up
+ */
+
+.pop-up {
+    position: absolute;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    margin-left:-200px;   
+    margin-top:-200px;
+    background: #aa7ecd; 
+    text-align: center;
+}
+
+.pop-up-header {
+    font-weight: bolder;
+    font-size: 1.5em;
+    align-content: center;
+}
+
+.pop-up-buttons {
+    width: 50px;
+    height: 35px;
+    align-content: center;
+}
+
+.buttons {
+    align-content: center;
+}
+
+.hide {
+    display: none;
+}
+
+
