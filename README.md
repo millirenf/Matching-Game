@@ -22,3 +22,6 @@ This game was built using the starter code from Udacity.com as part of their Fro
 
 From there I added code to complete the game.
 
+Resources I used to help me complete this project:
+-https://matthewcranford.com/memory-game-walkthrough-part-1-setup/
+-Stackoverflow.com
