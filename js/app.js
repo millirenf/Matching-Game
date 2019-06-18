@@ -9,23 +9,22 @@ let gameTime = 0;
 let moveCount = 0;
 let flippedCards = [];
 let matchedCards = [];
-let cardList = ['fa fa-diamond', 
-    'fa fa-paper-plane-o', 
-    'fa fa-anchor', 
-    'fa fa-bolt', 
-    'fa fa-cube', 
-    'fa fa-leaf', 
-    'fa fa-bicycle', 
-    'fa fa-bomb', 
-    'fa fa-diamond', 
-    'fa fa-paper-plane-o',
-    'fa fa-anchor',
-    'fa fa-bolt',
-    'fa fa-cube',
-    'fa fa-leaf',
-    'fa fa-bicycle',
-    'fa fa-bomb'];
-
+let cardList = ['fa-diamond', 
+    'fa-paper-plane-o', 
+    'fa-anchor', 
+    'fa-bolt', 
+    'fa-cube', 
+    'fa-leaf', 
+    'fa-bicycle', 
+    'fa-bomb', 
+    'fa-diamond', 
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bomb'];
 
 // ********** Restart the Game **********
 //listen for click to the restart button
@@ -33,14 +32,13 @@ scorePanel.addEventListener('click', event => {
     const resetButton = event.target;    
     if (resetButton.classList.contains('fa-repeat')) {
         restartGame();
-        console.log("restart button pushed");
     }
 })
 
 //ADD a start new button with an event listener to run these functions?
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(cardList) {
+function shuffle() {
     let currentIndex = cardList.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -50,27 +48,20 @@ function shuffle(cardList) {
         cardList[currentIndex] = cardList[randomIndex];
         cardList[randomIndex] = temporaryValue;
     }
-
     return cardList;
 }
 
-
 //Do a for look that loops through the cardList array and creates all 16 <li class="card"></li> within the <ul class="deck">
-function dealTheCards() { for (const i = 0; i < cardList.length; i++) {
-    document.getElementsByClassName('fa');
-    fa.style.className = '';
-    fa.style.classname = cardList[i];
-
-    //create the html card with <li class="card"> 
-    //const newCard = document.createElement('li', { is : 'card' });
-    // and give it some content 
-    //const newCardType = document.createElement('i', { is : [cardList]}); 
-    // add the text node to the newly created div
-    //newCard.appendChild(newCardType);  
-    //search for the class 'deck' and assign it to the variable 'deckDiv'
-    //const deckDiv = document.getElementsByClassName('deck');
-    //insert the new card into the deck
-    //document.body.insertAdjacentHTML(newCard, deckDiv); 
+function dealTheCards() { 
+    deck.innerHTML = ''; //clear the deck out
+    for (let i = 0; i < cardList.length; i++) {
+        let li = document.createElement("li");
+        li.classList.add("card");
+        let icon = document.createElement("i");
+        li.appendChild(icon);
+        icon.classList.add("fa");
+        icon.classList.add(cardList[i]);
+        deck.appendChild(li);
     }
 }  
     
@@ -111,7 +102,6 @@ function decrementStar() {
 function startGameClock() {
     if (gameStart == 0) {
         gameStart = 1;
-        console.log(gameStart);
         gameClock(); 
     }
 }
@@ -120,8 +110,7 @@ function startGameClock() {
 function gameClock(gameStart) {
     if (gameStart == 1) {
         clockId = setInterval(() => {
-        gameTime++;
-        //console.log(gameTime);
+        gameTime++;       
         publishGameClock(gameTime);
         }, 1000);
     }   
@@ -140,7 +129,6 @@ function publishGameClock(gameTime) {
 
 function stopGameClock() {    
     clearInterval(clockId);
-    console.log("game clock stopped")
 }
 
 // **********Game Play Code**********
@@ -160,13 +148,10 @@ deck.addEventListener('click', event => {
         }  
         gameStart = 2;       
         if (flippedCards.length === 2) {
-                      
-            console.log('2 cards have been selected');
             checkMatching(flippedCards);
             moveCount++;
             trackMoves(moveCount);
             starRating(moveCount);
-            console.log(moveCount);
         }         
     } 
     //checkWinCondition(matchedCards);
@@ -230,6 +215,7 @@ function restartGame() {
     resetCards();
     shuffle();
     dealTheCards();
+    hidePopUp();
     gameStart = 0;
     gameTime = 0;
     moveCount = 0;
@@ -239,7 +225,8 @@ function restartGame() {
 
 function resetGameClock() {
     gameTime = 0;
-    publishGameClock();
+    const clock = document.querySelector('.gameclock');
+    clock.innerHTML = '00:00';
 }
 
 function resetMoves() {
@@ -268,10 +255,7 @@ function resetStars() {
         star.style.display.classList.remove('none');
         }
     }
-    console.log("stars reset");
 }
-
-
 
 //********** Make and show the pop up when winning the game **********
 
@@ -305,6 +289,7 @@ function hidePopUp() {
         popUp.classList.add('hide');
 }
 
+//event listener for the replay/restart button
 popUp.addEventListener('click', event => {
     const replayButton = event.target;    
     if (replayButton.classList.contains('replay-button')) {
@@ -312,6 +297,7 @@ popUp.addEventListener('click', event => {
     }
 })
 
+//event listener for the close pop up button
 popUp.addEventListener('click', event => {
     const closeButton = event.target;
     if (closeButton.classList.contains('close-button')) {
