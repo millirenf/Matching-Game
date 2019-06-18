@@ -7,14 +7,18 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Game Objective: To match all 8 pairs of cards in as few moves as possible (2 cards flipped up constitutes a move) and in as short a time as possible.
 
-To get started, open `js/app.js` and start building out the app's functionality
+Game Play: Simple click on 2 cards, if the icons match the cards will stay flipped over, if not, the cards will turn back face down.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+After the Game: Once you win the game, there will be a pop up box displaying your final move count, game play time, and star rating. You can either just close the box or hit 'Replay" to go again!
+
+If you want to start over in the middle of a game, simply click the restart icon (the circular arrow)!
+
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This game was built using the starter code from Udacity.com as part of their Front End Web Development Nanodegree.  
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+From there I added code to complete the game.
+
